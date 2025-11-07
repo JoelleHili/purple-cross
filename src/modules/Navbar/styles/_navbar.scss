@@ -1,0 +1,15 @@
+.navbar{
+    background-color: $primary-color;
+    color: $background-color;
+    padding: 8px 16px;
+    border-radius: 8px;
+
+    &__title, &__icon{
+        color: $accent-color;
+    }
+
+    &__icon{
+        height: 40px;
+        width: 40px;
+    }
+}

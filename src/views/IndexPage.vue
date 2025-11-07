@@ -1,3 +1,5 @@
 <template>
-    <p>Index Page</p>
+    <section class="page">
+        <p>Index Page</p>
+    </section>
 </template>
