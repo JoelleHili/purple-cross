@@ -1,10 +1,14 @@
-<script setup lang="ts">
-</script>
-
 <template>
-  <div></div>
+  <div id="app">
+    <Navbar />
+    <router-view />
+  </div>
 </template>
 
-<style lang="scss" scoped>
+<script setup lang="ts">
+import { Navbar } from "@/modules/Navbar";
+</script>
 
+<style lang="scss">
+@use "@/styles/global.scss";
 </style>
