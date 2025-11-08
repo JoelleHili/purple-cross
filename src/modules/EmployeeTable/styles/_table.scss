@@ -1,0 +1,35 @@
+.employee-table {
+  background-color: $primary-color;
+  padding: 8px;
+  border-radius: 8px;
+  width: 100%;
+  border-collapse: separate;
+
+  &__head &__row {
+    background-color: $primary-color;
+    color: $background-color;
+  }
+
+  &__body &__row {
+    background-color: $background-color;
+    color: $primary-color;
+    &:nth-child(2n) {
+      background-color: $accent-color;
+      color: $primary-color;
+    }
+  }
+
+  &__body {
+    overflow: hidden;
+    border-radius: 4px;
+  }
+
+  &__row {
+    padding: 8px;
+  }
+
+  td {
+    padding: 8px;
+    text-align: center;
+  }
+}

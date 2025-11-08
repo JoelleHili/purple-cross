@@ -1,0 +1,12 @@
+.employee-index{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    
+    &__top{
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+        justify-content: flex-end;
+    }
+}

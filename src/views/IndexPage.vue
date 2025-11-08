@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { EmployeeTable } from "@/modules/EmployeeTable";
 import { ref } from "vue";
 
 const uploadedData = ref<any[]>([]);
@@ -45,20 +46,25 @@ const onFileChange = (event: Event) => {
   reader.readAsText(file);
   target.value = "";
 
-  console.log(uploadedData)
+  console.log(uploadedData);
 };
 </script>
 
 <template>
-  <section class="page">
-    <button @click="onUpload" class="elevated">Import File</button>
+  <section class="page employee-index">
+    <section class="employee-index__top">
+      <button @click="onUpload" class="elevated">Import File</button>
+      <button @click="" class="elevated">Export File</button>
 
-    <input
-      ref="inputRef"
-      type="file"
-      accept="application/json"
-      hidden
-      @change="onFileChange"
-    />
+      <input
+        ref="inputRef"
+        type="file"
+        accept="application/json"
+        hidden
+        @change="onFileChange"
+      />
+    </section>
+
+    <EmployeeTable :employees="uploadedData" />
   </section>
 </template>
