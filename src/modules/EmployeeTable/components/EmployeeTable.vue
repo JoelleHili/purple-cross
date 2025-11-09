@@ -3,8 +3,11 @@ import { EmployeeTypes } from "@/types/EmployeeTypes";
 import { EmployeeTableTypes } from "../types/employeeTableTypes";
 import { computed, ref, watch } from "vue";
 import EmployeeTableActions from "../components/EmployeeTableActions.vue";
+import { useEmployeeListStore } from "@/stores/employeeListStore";
 
 const props = defineProps<EmployeeTableTypes>();
+const employeeListState = useEmployeeListStore()
+
 
 // Pagination
 const currentPage = ref<number>(1);
@@ -77,7 +80,6 @@ const sortedEmployees = computed(() => {
 // Employee Actions
 const viewEmployee = (employee: EmployeeTypes) => {};
 const editEmployee = (employee: EmployeeTypes) => {};
-const deleteEmployee = (index: number) => props.employees.splice(index, 1);
 </script>
 
 <template>
@@ -113,7 +115,7 @@ const deleteEmployee = (index: number) => props.employees.splice(index, 1);
           <EmployeeTableActions
             @view="viewEmployee(employee)"
             @edit="editEmployee(employee)"
-            @delete="deleteEmployee(index)"
+            @delete="employeeListState.removeEmployeeFromList(index)"
           />
         </td>
       </tr>

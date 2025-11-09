@@ -20,7 +20,7 @@ const onUpload = async (): Promise<void> => {
       const file = await handle.getFile();
       const text = await file.text();
       const parsed = JSON.parse(text);
-      employeeListState.updateEmployeeList(Array.isArray(parsed) ? parsed : [parsed]);
+      employeeListState.importEmployeeList(Array.isArray(parsed) ? parsed : [parsed]);
       return;
     } catch (err) {
       console.warn("File picker cancelled or invalid JSON", err);
@@ -39,7 +39,7 @@ const onFileChange = (event: Event) => {
   reader.onload = (e) => {
     try {
       const parsed = JSON.parse(e.target?.result as string);
-      employeeListState.updateEmployeeList(Array.isArray(parsed) ? parsed : [parsed]);
+      employeeListState.importEmployeeList(Array.isArray(parsed) ? parsed : [parsed]);
     } catch (err) {
       console.error("Invalid JSON file", err);
     }
