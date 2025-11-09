@@ -2,6 +2,7 @@
 import { EmployeeTypes } from "@/types/EmployeeTypes";
 import { EmployeeTableTypes } from "../types/employeeTableTypes";
 import { computed } from "vue";
+import EmployeeTableActions from "../components/EmployeeTableActions.vue";
 
 const props = defineProps<EmployeeTableTypes>();
 
@@ -29,11 +30,17 @@ const isTerminated = (date: string) => {
   return "Terminated";
 };
 
-const viewEmployee = (employee: EmployeeTypes) => {};
+const viewEmployee = (employee: EmployeeTypes) => {
+  // Implement When Form is Done
+};
 
-const editEmployee = (employee: EmployeeTypes) => {};
+const editEmployee = (employee: EmployeeTypes) => {
+  // Implement When Form is Done
+};
 
-const removeEmployee = (index: number) => {};
+const deleteEmployee = (index: number) => {
+  props.employees.splice(index, 1)
+};
 </script>
 
 <template>
@@ -65,7 +72,13 @@ const removeEmployee = (index: number) => {};
             employee.terminationDate && isTerminated(employee.terminationDate)
           }}
         </td>
-        <td></td>
+        <td>
+          <EmployeeTableActions
+            @view="viewEmployee(employee)"
+            @edit="editEmployee(employee)"
+            @delete="deleteEmployee(index)"
+          />
+        </td>
       </tr>
     </tbody>
   </table>

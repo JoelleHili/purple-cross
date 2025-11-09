@@ -32,4 +32,25 @@
     padding: 8px;
     text-align: center;
   }
+
+  &__actions{
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    justify-content: center;
+
+    &__button{
+      background-color: transparent;
+      color: $primary-color;
+
+      &:hover{
+        color: $secondary-color;
+      }
+
+      &__icon{
+        height: 32px;
+        width: 32px;
+      }
+    }
+  }
 }
