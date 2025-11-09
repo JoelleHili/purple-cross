@@ -11,12 +11,12 @@ html {
 
 p,
 h1,
-button,td {
+button,td, select, option {
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   font-weight: bold;
 }
 
-p {
+p, td, select, option, button {
   font-size: 16px;
 }
 
