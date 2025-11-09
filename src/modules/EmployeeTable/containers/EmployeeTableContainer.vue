@@ -47,7 +47,6 @@ const onFileChange = (event: Event) => {
   target.value = "";
 };
 
-// Filters are now in parent
 const filters = ref({
   occupation: "",
   department: "",
