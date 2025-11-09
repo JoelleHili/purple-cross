@@ -1,1 +1,1 @@
-export {default as EmployeeTable} from "./containers/EmployeeTable.vue"
+export {default as EmployeeTable} from "./containers/EmployeeTableContainer.vue"

@@ -1,51 +1,82 @@
 <script setup lang="ts">
 import { EmployeeTypes } from "@/types/EmployeeTypes";
 import { EmployeeTableTypes } from "../types/employeeTableTypes";
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import EmployeeTableActions from "../components/EmployeeTableActions.vue";
 
 const props = defineProps<EmployeeTableTypes>();
 
-const employeeList = computed(() => props.employees);
-
-//Pagination Variables
+// Pagination
 const currentPage = ref<number>(1);
 const size = 8;
 const pageStart = computed(() => (currentPage.value - 1) * size);
 const pageEnd = computed(() => currentPage.value * size);
 
-// Check Date Functions
+// Sorting
+const sortKey = ref<"code" | "fullName" | null>(null);
+const sortAsc = ref(true);
+
+const setSort = (key: "code" | "fullName") => {
+  if (sortKey.value === key) {
+    sortAsc.value = !sortAsc.value;
+  } else {
+    sortKey.value = key;
+    sortAsc.value = true;
+  }
+};
+
 const isEmployed = (date: string) => {
   const employmentDate = new Date(date);
   const currentDate = new Date();
 
-  if (currentDate < employmentDate) {
-    return "Employed soon";
-  }
-
-  return "Currently employed";
+  return currentDate < employmentDate ? "Employed soon" : "Currently employed";
 };
 
 const isTerminated = (date: string) => {
   const terminationDate = new Date(date);
   const currentDate = new Date();
 
-  if (currentDate < terminationDate) {
-    return "To be terminated";
-  }
-
-  return "Terminated";
+  return currentDate < terminationDate ? "To be terminated" : "Terminated";
 };
 
-// Employee Action Functions
-const viewEmployee = (employee: EmployeeTypes) => {
-  // Implement When Form is Done
-};
+// Sorted & Filtered Employee List
+const filteredEmployees = computed(() => {
+  return props.employees.filter((employee) => {
+    const employmentStatus = isEmployed(employee.dateOfEmployment);
+    const terminationStatus = employee.terminationDate
+      ? isTerminated(employee.terminationDate)
+      : "";
 
-const editEmployee = (employee: EmployeeTypes) => {
-  // Implement When Form is Done
-};
+    return (
+      (!props.filters.occupation ||
+        employee.occupation === props.filters.occupation) &&
+      (!props.filters.department ||
+        employee.department === props.filters.department) &&
+      (!props.filters.dateOfEmployment ||
+        employmentStatus === props.filters.dateOfEmployment) &&
+      (!props.filters.terminationDate ||
+        terminationStatus === props.filters.terminationDate)
+    );
+  });
+});
 
+const sortedEmployees = computed(() => {
+  const list = [...filteredEmployees.value];
+  if (!sortKey.value) return list;
+
+  return list.sort((a, b) => {
+    const valA = a[sortKey.value!] as string;
+    const valB = b[sortKey.value!] as string;
+
+    if (valA < valB) return sortAsc.value ? -1 : 1;
+    if (valA > valB) return sortAsc.value ? 1 : -1;
+    return 0;
+  });
+});
+
+// Employee Actions
+const viewEmployee = (employee: EmployeeTypes) => {};
+const editEmployee = (employee: EmployeeTypes) => {};
 const deleteEmployee = (index: number) => props.employees.splice(index, 1);
 </script>
 
@@ -53,8 +84,8 @@ const deleteEmployee = (index: number) => props.employees.splice(index, 1);
   <table class="employee-table elevated">
     <thead class="employee-table__head">
       <tr class="employee-table__row">
-        <td>Code</td>
-        <td>Full Name</td>
+        <td @click="setSort('code')">Code</td>
+        <td @click="setSort('fullName')">Full Name</td>
         <td>Occupation</td>
         <td>Department</td>
         <td>Date of Employment</td>
@@ -64,7 +95,7 @@ const deleteEmployee = (index: number) => props.employees.splice(index, 1);
     </thead>
     <tbody class="employee-table__body">
       <tr
-        v-for="(employee, index) in employeeList.slice(pageStart, pageEnd)"
+        v-for="(employee, index) in sortedEmployees.slice(pageStart, pageEnd)"
         :key="employee.code"
         class="employee-table__row"
       >
@@ -88,10 +119,11 @@ const deleteEmployee = (index: number) => props.employees.splice(index, 1);
       </tr>
     </tbody>
   </table>
+
   <UPagination
-    v-model="currentPage"
+    v-model:page="currentPage"
     :items-per-page="size"
-    :total="employeeList.length"
+    :total="sortedEmployees.length"
     :sibling-count="1"
     show-edges
   >
@@ -104,10 +136,9 @@ const deleteEmployee = (index: number) => props.employees.splice(index, 1);
       >
         {{ item.value }}
       </button>
-
       <span v-else class="pagination__ellipsis">…</span>
     </template>
   </UPagination>
 </template>
 
-<style lang="scss" src="../styles/_table.scss" scoped />
+<style lang="scss" src="../styles/_table.scss" />

@@ -1,3 +1,5 @@
+@use "../variables" as *;
+
 .employee-index{
     display: flex;
     flex-direction: column;
@@ -6,7 +8,32 @@
     &__top{
         display: flex;
         flex-direction: row;
-        gap: 16px;
+        justify-content: space-between;
+    }
+
+    &__button-group{
+        display: flex;
+        flex-direction: row;
         justify-content: flex-end;
+        gap: 16px;
+    }
+
+    &__button{
+        color: $background-color;
+    }
+
+    &__select{
+        background-color: $input-color;
+        border: 2px solid $primary-color;
+        color: $primary-color;
+        border-radius: 8px;
+        padding: 16px 8px;
+    }
+
+    &__filters{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 16px;
     }
 }
