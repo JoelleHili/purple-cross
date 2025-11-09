@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import { useEmployeeListStore } from "@/stores/employeeListStore";
 import EmployeeTable from "../components/EmployeeTable.vue";
 import { ref } from "vue";
 
-const uploadedData = ref<any[]>([]);
 const inputRef = ref<HTMLInputElement | null>(null);
+const employeeListState = useEmployeeListStore()
 
 const onUpload = async (): Promise<void> => {
   if ("showOpenFilePicker" in window) {
@@ -19,7 +20,7 @@ const onUpload = async (): Promise<void> => {
       const file = await handle.getFile();
       const text = await file.text();
       const parsed = JSON.parse(text);
-      uploadedData.value = Array.isArray(parsed) ? parsed : [parsed];
+      employeeListState.updateEmployeeList(Array.isArray(parsed) ? parsed : [parsed]);
       return;
     } catch (err) {
       console.warn("File picker cancelled or invalid JSON", err);
@@ -38,7 +39,7 @@ const onFileChange = (event: Event) => {
   reader.onload = (e) => {
     try {
       const parsed = JSON.parse(e.target?.result as string);
-      uploadedData.value = Array.isArray(parsed) ? parsed : [parsed];
+      employeeListState.updateEmployeeList(Array.isArray(parsed) ? parsed : [parsed]);
     } catch (err) {
       console.error("Invalid JSON file", err);
     }
@@ -61,7 +62,7 @@ const filters = ref({
       <select v-model="filters.occupation" class="employee-index__select">
         <option value="">All Occupations</option>
         <option
-          v-for="o in [...new Set(uploadedData.map((e) => e.occupation))]"
+          v-for="o in [...new Set(employeeListState.getEmployeeList.map((e) => e.occupation))]"
           :key="o"
           :value="o"
         >
@@ -72,7 +73,7 @@ const filters = ref({
       <select v-model="filters.department" class="employee-index__select">
         <option value="">All Departments</option>
         <option
-          v-for="d in [...new Set(uploadedData.map((e) => e.department))]"
+          v-for="d in [...new Set(employeeListState.getEmployeeList.map((e) => e.department))]"
           :key="d"
           :value="d"
         >
@@ -110,5 +111,5 @@ const filters = ref({
     </section>
   </section>
 
-  <EmployeeTable :employees="uploadedData" :filters="filters" />
+  <EmployeeTable :employees="employeeListState.getEmployeeList" :filters="filters" />
 </template>
