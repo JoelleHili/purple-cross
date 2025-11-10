@@ -2,9 +2,14 @@
 import { EmployeeTypes } from "@/types/EmployeeTypes";
 import { EmployeeFormTypes } from "../types/employeeFormTypes";
 import { useEmployeeListStore } from "@/stores/employeeListStore";
+import router from "@/router";
+import { useRoute } from "vue-router";
 
 const props = defineProps<EmployeeFormTypes>();
 const employeeListState = useEmployeeListStore();
+
+const route = useRoute();
+const from = route.query.from as string | undefined;
 
 const checkTypeValidation = (type: string) => {
   switch (type) {
@@ -37,9 +42,11 @@ const submitForm = (event: Event) => {
   switch (props.type) {
     case "add":
       employeeListState.addEmployeeToList(employee);
+      router.back();
       break;
     case "edit":
       employeeListState.updateEmployee(employee);
+      router.back();
       break;
     default:
       break;
@@ -133,11 +140,14 @@ const submitForm = (event: Event) => {
         :disabled="props.type === 'view'"
       />
     </section>
-    <input
-      type="submit"
-      class="employee-form__submit"
-      v-show="props.type === 'add' || props.type === 'edit'"
-    />
+    <section class="employee-form__button-group">
+      <button @click="router.push(from ?? '/')">Back</button>
+      <input
+        type="submit"
+        class="employee-form__submit"
+        v-show="props.type === 'add' || props.type === 'edit'"
+      />
+    </section>
   </form>
 </template>
 

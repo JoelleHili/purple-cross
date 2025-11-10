@@ -5,7 +5,7 @@ export const useEmployeeListStore = defineStore("employeeList", {
   state() {
     return {
       employeeList: [] as EmployeeTypes[],
-    };
+    }
   },
   getters: {
     getEmployeeList: (state) => state.employeeList,
@@ -47,4 +47,10 @@ export const useEmployeeListStore = defineStore("employeeList", {
       URL.revokeObjectURL(url);
     },
   },
+  persist: [
+    {
+      key: "purple_cross_employee_list",
+      storage: localStorage
+    }
+  ]
 });

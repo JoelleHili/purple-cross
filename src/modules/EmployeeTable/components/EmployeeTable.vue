@@ -4,6 +4,7 @@ import { EmployeeTableTypes } from "../types/employeeTableTypes";
 import { computed, ref, watch } from "vue";
 import EmployeeTableActions from "../components/EmployeeTableActions.vue";
 import { useEmployeeListStore } from "@/stores/employeeListStore";
+import router from "@/router";
 
 const props = defineProps<EmployeeTableTypes>();
 const employeeListState = useEmployeeListStore();
@@ -82,8 +83,18 @@ const paddedData = computed(() => {
 });
 
 // Employee Actions
-const viewEmployee = (employee: EmployeeTypes) => {};
-const editEmployee = (employee: EmployeeTypes) => {};
+const viewEmployee = (employee: EmployeeTypes) => {
+  router.push({
+    path: "/form/view/",
+    query: { employee: JSON.stringify(employee) },
+  });
+};
+const editEmployee = (employee: EmployeeTypes) => {
+  router.push({
+    path: `/form/edit/`,
+    query: { employee: JSON.stringify(employee) },
+  });
+};
 </script>
 
 <template>

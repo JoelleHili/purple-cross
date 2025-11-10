@@ -6,8 +6,10 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { createPinia } from "pinia";
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
 
 /* add icons to the library */
 library.add(fas);
