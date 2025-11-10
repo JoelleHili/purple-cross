@@ -11,7 +11,6 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 
-/* add icons to the library */
 library.add(fas);
 
 const app = createApp(App);

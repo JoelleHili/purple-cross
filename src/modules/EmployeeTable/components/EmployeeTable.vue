@@ -5,20 +5,28 @@ import { computed, ref } from "vue";
 import EmployeeTableActions from "../components/EmployeeTableActions.vue";
 import { useEmployeeListStore } from "@/stores/employeeListStore";
 import router from "@/router";
+import { checkIfEmployed, checkIfTerminated, filterTableData, roundTableData, sortTableData } from "../helpers/tableHelper";
 
 const props = defineProps<EmployeeTableTypes>();
 const employeeListState = useEmployeeListStore();
 
-// Pagination
+// Pagination Variables
 const currentPage = ref<number>(1);
 const size = 8;
 const pageStart = computed(() => (currentPage.value - 1) * size);
 const pageEnd = computed(() => currentPage.value * size);
 
-// Sorting
+// Filter Functions
+const filteredEmployees = computed(() => {
+  currentPage.value = 1;
+  return filterTableData(props.employees, props.filters);
+});
+
+// Sorting Variables
 const sortKey = ref<"code" | "fullName" | null>(null);
 const sortAsc = ref(true);
 
+// Sorting Functions
 const getSortingIcon = (key: string) => {
   if (sortKey.value === key) {
     if (sortAsc.value) {
@@ -40,59 +48,13 @@ const setSort = (key: "code" | "fullName") => {
   }
 };
 
-const isEmployed = (date: string) => {
-  const employmentDate = new Date(date);
-  const currentDate = new Date();
-
-  return currentDate < employmentDate ? "Employed soon" : "Currently employed";
-};
-
-const isTerminated = (date: string) => {
-  const terminationDate = new Date(date);
-  const currentDate = new Date();
-
-  return currentDate < terminationDate ? "To be terminated" : "Terminated";
-};
-
-// Sorted & Filtered Employee List
-const filteredEmployees = computed(() => {
-  currentPage.value = 1
-  return props.employees.filter((employee) => {
-    const employmentStatus = isEmployed(employee.dateOfEmployment);
-    const terminationStatus = employee.terminationDate
-      ? isTerminated(employee.terminationDate)
-      : "";
-
-    return (
-      (!props.filters.occupation ||
-        employee.occupation === props.filters.occupation) &&
-      (!props.filters.department ||
-        employee.department === props.filters.department) &&
-      (!props.filters.dateOfEmployment ||
-        employmentStatus === props.filters.dateOfEmployment) &&
-      (!props.filters.terminationDate ||
-        terminationStatus === props.filters.terminationDate)
-    );
-  });
-});
-
 const sortedEmployees = computed(() => {
-  const list = [...filteredEmployees.value];
-  if (!sortKey.value) return list;
-
-  return list.sort((a, b) => {
-    const valA = a[sortKey.value!] as string;
-    const valB = b[sortKey.value!] as string;
-
-    if (valA < valB) return sortAsc.value ? -1 : 1;
-    if (valA > valB) return sortAsc.value ? 1 : -1;
-    return 0;
-  });
+  return sortTableData(filteredEmployees.value, sortKey.value, sortAsc.value);
 });
 
+// Other Functions
 const paddedData = computed(() => {
-  const rowsToFill = size - (sortedEmployees.value.length % size || size);
-  return [...sortedEmployees.value, ...Array(rowsToFill).fill(null)];
+  return roundTableData(size, sortedEmployees.value)
 });
 
 // Employee Actions
@@ -148,10 +110,10 @@ const editEmployee = (employee: EmployeeTypes) => {
           <td>{{ employee.fullName }}</td>
           <td>{{ employee.occupation }}</td>
           <td>{{ employee.department }}</td>
-          <td>{{ isEmployed(employee.dateOfEmployment) }}</td>
+          <td>{{ checkIfEmployed(employee.dateOfEmployment) }}</td>
           <td>
             {{
-              employee.terminationDate && isTerminated(employee.terminationDate)
+              employee.terminationDate && checkIfTerminated(employee.terminationDate)
             }}
           </td>
           <td>
