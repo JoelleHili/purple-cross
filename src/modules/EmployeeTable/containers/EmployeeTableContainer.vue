@@ -2,6 +2,7 @@
 import { useEmployeeListStore } from "@/stores/employeeListStore";
 import EmployeeTable from "../components/EmployeeTable.vue";
 import { ref } from "vue";
+import { EmployeeTypes } from "@/types/EmployeeTypes";
 
 const inputRef = ref<HTMLInputElement | null>(null);
 const employeeListState = useEmployeeListStore()
@@ -39,14 +40,31 @@ const onFileChange = (event: Event) => {
   reader.onload = (e) => {
     try {
       const parsed = JSON.parse(e.target?.result as string);
-      employeeListState.importEmployeeList(Array.isArray(parsed) ? parsed : [parsed]);
+      employeeListState.importEmployeeList(checkIfImportIsCorrect(parsed));
     } catch (err) {
+      alert(err)
       console.error("Invalid JSON file", err);
     }
   };
   reader.readAsText(file);
   target.value = "";
 };
+
+const checkIfImportIsCorrect = (parsedImport: unknown): EmployeeTypes[] => {
+  if (Array.isArray(parsedImport) && parsedImport.every(
+    obj => obj && typeof obj === 'object' &&
+           typeof (obj as any).code === 'string' &&
+           typeof (obj as any).fullName === 'string' &&
+           typeof (obj as any).occupation === 'string' &&
+           typeof (obj as any).department === 'string' &&
+           typeof (obj as any).dateOfEmployment === 'string' &&
+           ((obj as any).terminationDate === undefined || (obj as any).terminationDate === null || typeof (obj as any).terminationDate === 'string')
+  )) {
+    return parsedImport as EmployeeTypes[];
+  }
+  throw new Error('Does not follow Employee JSON format');
+}
+
 
 const filters = ref({
   occupation: "",
