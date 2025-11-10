@@ -7,7 +7,7 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/IndexPage.vue')
   },
   {
-    path: '/form',
+    path: '/form/:type/:data?',
     name: 'Employee Form',
     component: () => import('@/views/EmployeePage.vue')
   }
