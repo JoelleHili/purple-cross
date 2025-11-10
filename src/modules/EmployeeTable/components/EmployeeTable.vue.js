@@ -135,6 +135,15 @@ __VLS_asFunctionalElement(__VLS_intrinsics.td, __VLS_intrinsics.td)({});
 __VLS_asFunctionalElement(__VLS_intrinsics.tbody, __VLS_intrinsics.tbody)({
     ...{ class: "employee-table__body" },
 });
+__VLS_asFunctionalElement(__VLS_intrinsics.tr, __VLS_intrinsics.tr)({
+    ...{ class: "employee-table__empty" },
+});
+__VLS_asFunctionalDirective(__VLS_directives.vShow)(null, { ...__VLS_directiveBindingRestFields, value: (__VLS_ctx.paddedData.length === 0) }, null, null);
+// @ts-ignore
+[paddedData,];
+__VLS_asFunctionalElement(__VLS_intrinsics.td, __VLS_intrinsics.td)({
+    colspan: "7",
+});
 for (const [employee, index] of __VLS_getVForSourceType((__VLS_ctx.paddedData.slice(__VLS_ctx.pageStart, __VLS_ctx.pageEnd)))) {
     // @ts-ignore
     [paddedData, pageStart, pageEnd,];
@@ -264,6 +273,7 @@ var __VLS_22;
 /** @type {__VLS_StyleScopedClasses['navbar__icon']} */ ;
 /** @type {__VLS_StyleScopedClasses['navbar__icon']} */ ;
 /** @type {__VLS_StyleScopedClasses['employee-table__body']} */ ;
+/** @type {__VLS_StyleScopedClasses['employee-table__empty']} */ ;
 /** @type {__VLS_StyleScopedClasses['employee-table__row']} */ ;
 /** @type {__VLS_StyleScopedClasses['pagination__item']} */ ;
 /** @type {__VLS_StyleScopedClasses['pagination__item__active']} */ ;
