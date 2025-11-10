@@ -106,6 +106,7 @@ const editEmployee = (employee: EmployeeTypes) => {
       </tr>
     </thead>
     <tbody class="employee-table__body">
+      <tr v-show="paddedData.length === 0" class="employee-table__empty"><td colspan="7">Please Import Employee List or Add Employee</td></tr>
       <tr
         v-for="(employee, index) in paddedData.slice(pageStart, pageEnd)"
         :key="employee ? employee.code : `empty-${index}`"
