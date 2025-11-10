@@ -131,7 +131,9 @@ const editEmployee = (employee: EmployeeTypes) => {
             <EmployeeTableActions
               @view="viewEmployee(employee)"
               @edit="editEmployee(employee)"
-              @delete="employeeListState.removeEmployeeFromList(index)"
+              @delete="
+                employeeListState.removeEmployeeFromList(pageStart + index)
+              "
             />
           </td>
         </template>
