@@ -5,7 +5,13 @@ import { computed, ref } from "vue";
 import EmployeeTableActions from "../components/EmployeeTableActions.vue";
 import { useEmployeeListStore } from "@/stores/employeeListStore";
 import router from "@/router";
-import { checkIfEmployed, checkIfTerminated, filterTableData, roundTableData, sortTableData } from "../helpers/tableHelper";
+import {
+  checkIfEmployed,
+  checkIfTerminated,
+  filterTableData,
+  roundTableData,
+  sortTableData,
+} from "../helpers/tableHelper";
 
 const props = defineProps<EmployeeTableTypes>();
 const employeeListState = useEmployeeListStore();
@@ -52,9 +58,9 @@ const sortedEmployees = computed(() => {
   return sortTableData(filteredEmployees.value, sortKey.value, sortAsc.value);
 });
 
-// Other Functions
+// Table Rounding Function
 const paddedData = computed(() => {
-  return roundTableData(size, sortedEmployees.value)
+  return roundTableData(size, sortedEmployees.value);
 });
 
 // Employee Actions
@@ -113,7 +119,8 @@ const editEmployee = (employee: EmployeeTypes) => {
           <td>{{ checkIfEmployed(employee.dateOfEmployment) }}</td>
           <td>
             {{
-              employee.terminationDate && checkIfTerminated(employee.terminationDate)
+              employee.terminationDate &&
+              checkIfTerminated(employee.terminationDate)
             }}
           </td>
           <td>

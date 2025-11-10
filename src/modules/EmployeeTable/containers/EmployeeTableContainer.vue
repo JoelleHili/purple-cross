@@ -7,6 +7,7 @@ import { EmployeeTypes } from "@/types/EmployeeTypes";
 const inputRef = ref<HTMLInputElement | null>(null);
 const employeeListState = useEmployeeListStore()
 
+// Upload Handling
 const onUpload = async (): Promise<void> => {
   if ("showOpenFilePicker" in window) {
     try {
@@ -65,7 +66,7 @@ const checkIfImportIsCorrect = (parsedImport: unknown): EmployeeTypes[] => {
   throw new Error('Does not follow Employee JSON format');
 }
 
-
+// Filter Variables
 const filters = ref({
   occupation: "",
   department: "",

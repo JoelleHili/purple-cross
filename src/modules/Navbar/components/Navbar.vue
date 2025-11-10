@@ -1,10 +1,5 @@
 <script lang="ts"></script>
 
-<!-- 
-title: string
-icon: string
--->
-
 <template>
   <section class="navbar elevated">
     <RouterLink class="navbar__company" to="/">
