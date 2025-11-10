@@ -1,28 +1,38 @@
-.navbar{
-    background-color: $primary-color;
-    color: $background-color;
-    padding: 4px 16px;
-    border-radius: 8px;
+.navbar {
+  background-color: $primary-color;
+  color: $background-color;
+  padding: 4px 16px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 
-    &__company{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        text-decoration: none;
+  &__company {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+
+    > .navbar__icon {
+      height: 40px;
+      width: 40px;
     }
+  }
 
-    &__title, &__icon{
-        color: $accent-color;
-        margin-right: 16px;
-    }
+  &__title,
+  &__icon {
+    color: $accent-color;
+    margin-right: 16px;
+  }
 
-    &__title{
-        font-weight: bolder;
-        margin: 8px 0px;
-    }
+  &__title {
+    font-weight: bolder;
+    margin: 8px 0px;
+  }
 
-    &__icon{
-        height: 40px;
-        width: 40px;
+  > .navbar__icon {
+      height: 24px;
+      width: 24px;
     }
 }

@@ -39,9 +39,25 @@ __VLS_asFunctionalElement(__VLS_intrinsics.h1, __VLS_intrinsics.h1)({
     ...{ class: "navbar__title" },
 });
 var __VLS_3;
+const __VLS_10 = {}.FontAwesomeIcon;
+/** @type {[typeof __VLS_components.FontAwesomeIcon, typeof __VLS_components.fontAwesomeIcon, ]} */ ;
+// @ts-ignore
+FontAwesomeIcon;
+// @ts-ignore
+const __VLS_11 = __VLS_asFunctionalComponent(__VLS_10, new __VLS_10({
+    icon: "fa-solid fa-circle-user",
+    ...{ class: "navbar__icon" },
+    widthAuto: true,
+}));
+const __VLS_12 = __VLS_11({
+    icon: "fa-solid fa-circle-user",
+    ...{ class: "navbar__icon" },
+    widthAuto: true,
+}, ...__VLS_functionalComponentArgsRest(__VLS_11));
 /** @type {__VLS_StyleScopedClasses['navbar']} */ ;
 /** @type {__VLS_StyleScopedClasses['elevated']} */ ;
 /** @type {__VLS_StyleScopedClasses['navbar__company']} */ ;
 /** @type {__VLS_StyleScopedClasses['navbar__icon']} */ ;
 /** @type {__VLS_StyleScopedClasses['navbar__title']} */ ;
+/** @type {__VLS_StyleScopedClasses['navbar__icon']} */ ;
 export default {};
