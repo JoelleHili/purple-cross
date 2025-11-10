@@ -97,7 +97,7 @@ const filters = ref({
       <button @click="onUpload" class="elevated employee-index__button">
         Import File
       </button>
-      <button @click="" class="elevated employee-index__button">
+      <button @click="employeeListState.exportEmployeeList()" class="elevated employee-index__button">
         Export File
       </button>
 
