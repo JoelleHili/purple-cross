@@ -6,8 +6,7 @@ import EmployeeTableActions from "../components/EmployeeTableActions.vue";
 import { useEmployeeListStore } from "@/stores/employeeListStore";
 
 const props = defineProps<EmployeeTableTypes>();
-const employeeListState = useEmployeeListStore()
-
+const employeeListState = useEmployeeListStore();
 
 // Pagination
 const currentPage = ref<number>(1);
@@ -77,6 +76,11 @@ const sortedEmployees = computed(() => {
   });
 });
 
+const paddedData = computed(() => {
+  const rowsToFill = size - (sortedEmployees.value.length % size || size);
+  return [...sortedEmployees.value, ...Array(rowsToFill).fill(null)];
+});
+
 // Employee Actions
 const viewEmployee = (employee: EmployeeTypes) => {};
 const editEmployee = (employee: EmployeeTypes) => {};
@@ -97,27 +101,39 @@ const editEmployee = (employee: EmployeeTypes) => {};
     </thead>
     <tbody class="employee-table__body">
       <tr
-        v-for="(employee, index) in sortedEmployees.slice(pageStart, pageEnd)"
-        :key="employee.code"
+        v-for="(employee, index) in paddedData.slice(pageStart, pageEnd)"
+        :key="employee ? employee.code : `empty-${index}`"
         class="employee-table__row"
       >
-        <td>{{ employee.code }}</td>
-        <td>{{ employee.fullName }}</td>
-        <td>{{ employee.occupation }}</td>
-        <td>{{ employee.department }}</td>
-        <td>{{ isEmployed(employee.dateOfEmployment) }}</td>
-        <td>
-          {{
-            employee.terminationDate && isTerminated(employee.terminationDate)
-          }}
-        </td>
-        <td>
-          <EmployeeTableActions
-            @view="viewEmployee(employee)"
-            @edit="editEmployee(employee)"
-            @delete="employeeListState.removeEmployeeFromList(index)"
-          />
-        </td>
+        <template v-if="employee">
+          <td>{{ employee.code }}</td>
+          <td>{{ employee.fullName }}</td>
+          <td>{{ employee.occupation }}</td>
+          <td>{{ employee.department }}</td>
+          <td>{{ isEmployed(employee.dateOfEmployment) }}</td>
+          <td>
+            {{
+              employee.terminationDate && isTerminated(employee.terminationDate)
+            }}
+          </td>
+          <td>
+            <EmployeeTableActions
+              @view="viewEmployee(employee)"
+              @edit="editEmployee(employee)"
+              @delete="employeeListState.removeEmployeeFromList(index)"
+            />
+          </td>
+        </template>
+
+        <template v-else>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </template>
       </tr>
     </tbody>
   </table>
