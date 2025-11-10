@@ -19,9 +19,19 @@
     }
   }
 
+  &__empty {
+    background-color: $background-color;
+    color: $primary-color;
+    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    height: 56vh;
+  }
+
   &__body {
     overflow: hidden;
     border-radius: 4px;
+    height: 56vh;
   }
 
   &__row {
@@ -34,21 +44,21 @@
     height: 54px;
   }
 
-  &__actions{
+  &__actions {
     display: flex;
     flex-direction: row;
     gap: 16px;
     justify-content: center;
 
-    &__button{
+    &__button {
       background-color: transparent;
       color: $primary-color;
 
-      &:hover{
+      &:hover {
         color: $secondary-color;
       }
 
-      &__icon{
+      &__icon {
         height: 32px;
         width: 32px;
       }
