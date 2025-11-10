@@ -5,7 +5,7 @@ export const useEmployeeListStore = defineStore("employeeList", {
   state() {
     return {
       employeeList: [] as EmployeeTypes[],
-    }
+    };
   },
   getters: {
     getEmployeeList: (state) => state.employeeList,
@@ -17,8 +17,14 @@ export const useEmployeeListStore = defineStore("employeeList", {
     addEmployeeToList(employee: EmployeeTypes) {
       this.employeeList.push(employee);
     },
-    removeEmployeeFromList(index: number) {
-      this.employeeList.splice(index, 1);
+    removeEmployeeFromList(removedEmployee: EmployeeTypes) {
+      const index = this.employeeList.findIndex(
+        (employee) => employee.code === removedEmployee.code
+      );
+      
+      if (index !== -1) {
+        this.employeeList.splice(index, 1);
+      }
     },
     updateEmployee(updatedEmployee: EmployeeTypes) {
       const updateIndex = this.employeeList.findIndex(
@@ -34,7 +40,9 @@ export const useEmployeeListStore = defineStore("employeeList", {
       const url = URL.createObjectURL(blob);
 
       const now = new Date();
-      const dateStr = `${now.getDate()}_${now.getMonth() + 1}_${now.getFullYear()}`;
+      const dateStr = `${now.getDate()}_${
+        now.getMonth() + 1
+      }_${now.getFullYear()}`;
 
       const a = document.createElement("a") as HTMLAnchorElement;
       a.href = url;
@@ -50,7 +58,7 @@ export const useEmployeeListStore = defineStore("employeeList", {
   persist: [
     {
       key: "purple_cross_employee_list",
-      storage: localStorage
-    }
-  ]
+      storage: localStorage,
+    },
+  ],
 });

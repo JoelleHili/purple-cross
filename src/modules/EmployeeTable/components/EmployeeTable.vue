@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { EmployeeTypes } from "@/types/EmployeeTypes";
 import { EmployeeTableTypes } from "../types/employeeTableTypes";
-import { computed, ref, watch } from "vue";
+import { computed, ref } from "vue";
 import EmployeeTableActions from "../components/EmployeeTableActions.vue";
 import { useEmployeeListStore } from "@/stores/employeeListStore";
 import router from "@/router";
@@ -18,6 +18,18 @@ const pageEnd = computed(() => currentPage.value * size);
 // Sorting
 const sortKey = ref<"code" | "fullName" | null>(null);
 const sortAsc = ref(true);
+
+const getSortingIcon = (key: string) => {
+  if (sortKey.value === key) {
+    if (sortAsc.value) {
+      return "fa-solid fa-chevron-up";
+    } else {
+      return "fa-solid fa-chevron-down";
+    }
+  } else {
+    return "fa-solid fa-minus";
+  }
+};
 
 const setSort = (key: "code" | "fullName") => {
   if (sortKey.value === key) {
@@ -44,6 +56,7 @@ const isTerminated = (date: string) => {
 
 // Sorted & Filtered Employee List
 const filteredEmployees = computed(() => {
+  currentPage.value = 1
   return props.employees.filter((employee) => {
     const employmentStatus = isEmployed(employee.dateOfEmployment);
     const terminationStatus = employee.terminationDate
@@ -101,8 +114,22 @@ const editEmployee = (employee: EmployeeTypes) => {
   <table class="employee-table elevated">
     <thead class="employee-table__head">
       <tr class="employee-table__row">
-        <td @click="setSort('code')">Code</td>
-        <td @click="setSort('fullName')">Full Name</td>
+        <td @click="setSort('code')">
+          Code
+          <font-awesome-icon
+            :icon="getSortingIcon('code')"
+            class="navbar__icon"
+            widthAuto
+          />
+        </td>
+        <td @click="setSort('fullName')">
+          Full Name
+          <font-awesome-icon
+            :icon="getSortingIcon('fullName')"
+            class="navbar__icon"
+            widthAuto
+          />
+        </td>
         <td>Occupation</td>
         <td>Department</td>
         <td>Date of Employment</td>
@@ -131,9 +158,7 @@ const editEmployee = (employee: EmployeeTypes) => {
             <EmployeeTableActions
               @view="viewEmployee(employee)"
               @edit="editEmployee(employee)"
-              @delete="
-                employeeListState.removeEmployeeFromList(pageStart + index)
-              "
+              @delete="employeeListState.removeEmployeeFromList(employee)"
             />
           </td>
         </template>
