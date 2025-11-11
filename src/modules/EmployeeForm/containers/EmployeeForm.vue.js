@@ -18,14 +18,22 @@ const checkTypeValidation = (type) => {
     }
 };
 const submitForm = (event) => {
+    // Prevent Form from Reloading
     event.preventDefault();
+    // Get Form Data from Event
     const form = event.target;
     const formData = new FormData(form);
     const employee = {};
+    // Assign Form Data to Employee Object
     formData.forEach((value, key) => {
         const typedKey = key;
-        employee[typedKey] = value.toString(); // all values are strings; convert if needed
+        employee[typedKey] = value.toString();
     });
+    /*
+      Act accordingly depending on tag:
+      - "add": Inserts Employee to EmployeeList
+      - "edit": Updates Employee
+    */
     switch (props.type) {
         case "add":
             employeeListState.addEmployeeToList(employee);
