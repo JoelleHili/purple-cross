@@ -7,10 +7,14 @@ import { EmployeeTypes } from "@/types/EmployeeTypes";
 const inputRef = ref<HTMLInputElement | null>(null);
 const employeeListState = useEmployeeListStore()
 
-// Upload Handling
+/// Upload Handling
+// Try Modern File System
 const onUpload = async (): Promise<void> => {
+
+  // Check if Modern File System is Supported
   if ("showOpenFilePicker" in window) {
     try {
+      // Open File Picker 
       const [handle] = await (window as any).showOpenFilePicker({
         types: [
           {
@@ -19,8 +23,12 @@ const onUpload = async (): Promise<void> => {
           },
         ],
       });
+
+      // Get File Content
       const file = await handle.getFile();
       const text = await file.text();
+
+      // Parse Json and Import as new Employee List
       const parsed = JSON.parse(text);
       employeeListState.importEmployeeList(Array.isArray(parsed) ? parsed : [parsed]);
       return;
@@ -29,28 +37,41 @@ const onUpload = async (): Promise<void> => {
       return;
     }
   }
+
+  // Fallback if Modern File System is Not Supported
   inputRef.value?.click();
 };
 
+/// Fuction for handling Fallback option
 const onFileChange = (event: Event) => {
+  // Get Input File
   const target = event.target as HTMLInputElement;
   const file = target.files?.[0];
-  if (!file) return;
+  if (!file) return; // Ends function if not found
 
   const reader = new FileReader();
+
+  // Process File
   reader.onload = (e) => {
     try {
+      // Parse Json and Import as new Employee List
       const parsed = JSON.parse(e.target?.result as string);
       employeeListState.importEmployeeList(checkIfImportIsCorrect(parsed));
     } catch (err) {
+      // Notify User of error
       alert(err)
       console.error("Invalid JSON file", err);
     }
   };
+
+  // Read file as plain text
   reader.readAsText(file);
+
+  // Reset input
   target.value = "";
 };
 
+/// Enusre that imported JSON is the Correct Type
 const checkIfImportIsCorrect = (parsedImport: unknown): EmployeeTypes[] => {
   if (Array.isArray(parsedImport) && parsedImport.every(
     obj => obj && typeof obj === 'object' &&
