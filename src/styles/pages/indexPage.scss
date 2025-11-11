@@ -22,7 +22,7 @@
 
     &__button{
         color: $background-color;
-        width: 160px;
+        width: 12vw;
         padding: 8px 16px;
     }
 
@@ -32,6 +32,7 @@
         color: $primary-color;
         border-radius: 8px;
         padding: 8px;
+        width: 12vw;
     }
 
     &__filters{

@@ -7,7 +7,21 @@
   &__title {
     color: $primary-color;
   }
+
   &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    height: 70vh;
+    justify-content: space-between;
+
+    @media (min-width: 600px) {
+      height: fit-content;
+      gap: 32px;
+    }
+  }
+
+  &__field-container {
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -17,7 +31,7 @@
   &__field {
     display: flex;
     flex-direction: row;
-    width: 50vw;
+    width: 60vw;
     justify-content: space-between;
     align-items: center;
 
@@ -50,9 +64,21 @@
   }
 
   &__button-group {
-    margin-top: 32px;
     display: flex;
     flex-direction: row;
-    gap: 16px;
+    gap: 32px;
+    width: 100%;
+    justify-content: space-between;
+
+    > button,
+    > input {
+      width: 100%;
+    }
+
+    @media (min-width: 600px) {
+      width: fit-content;
+      justify-content: end;
+      gap: 16px;
+    }
   }
 }

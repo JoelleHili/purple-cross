@@ -25,13 +25,13 @@
     font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
     font-weight: bold;
     font-size: 24px;
-    height: 56vh;
+    height: 63vh;
   }
 
   &__body {
     overflow: hidden;
     border-radius: 4px;
-    height: 56vh;
+    height: 63vh;
   }
 
   &__row {
@@ -41,7 +41,7 @@
   td {
     padding: 4px 8px;
     text-align: center;
-    height: 54px;
+    height: 6vh;
   }
 
   &__actions {
@@ -59,8 +59,8 @@
       }
 
       &__icon {
-        height: 32px;
-        width: 32px;
+        height: 24px;
+        width: 24px;
       }
     }
   }

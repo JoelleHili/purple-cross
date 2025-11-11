@@ -71,74 +71,76 @@ const submitForm = (event: Event) => {
     @submit="submitForm"
     class="employee-form__form"
   >
-    <section class="employee-form__field">
-      <label for="code">Code:</label>
-      <input
-        type="text"
-        id="code"
-        name="code"
-        :value="props.data?.code"
-        required
-        :disabled="props.type === 'view'"
-      />
-    </section>
+    <section class="employee-form__field-container">
+      <section class="employee-form__field">
+        <label for="code">Code:</label>
+        <input
+          type="text"
+          id="code"
+          name="code"
+          :value="props.data?.code"
+          required
+          :disabled="props.type === 'view'"
+        />
+      </section>
 
-    <section class="employee-form__field">
-      <label for="fullName">Full Name:</label>
-      <input
-        type="text"
-        id="fullName"
-        name="fullName"
-        :value="props.data?.fullName"
-        required
-        :disabled="props.type === 'view'"
-      />
-    </section>
+      <section class="employee-form__field">
+        <label for="fullName">Full Name:</label>
+        <input
+          type="text"
+          id="fullName"
+          name="fullName"
+          :value="props.data?.fullName"
+          required
+          :disabled="props.type === 'view'"
+        />
+      </section>
 
-    <section class="employee-form__field">
-      <label for="occupation">Occupation:</label>
-      <input
-        type="text"
-        id="occupation"
-        name="occupation"
-        :value="props.data?.occupation"
-        required
-        :disabled="props.type === 'view'"
-      />
-    </section>
+      <section class="employee-form__field">
+        <label for="occupation">Occupation:</label>
+        <input
+          type="text"
+          id="occupation"
+          name="occupation"
+          :value="props.data?.occupation"
+          required
+          :disabled="props.type === 'view'"
+        />
+      </section>
 
-    <section class="employee-form__field">
-      <label for="department">Department:</label>
-      <input
-        type="text"
-        id="department"
-        name="department"
-        :value="props.data?.department"
-        required
-        :disabled="props.type === 'view'"
-      />
-    </section>
+      <section class="employee-form__field">
+        <label for="department">Department:</label>
+        <input
+          type="text"
+          id="department"
+          name="department"
+          :value="props.data?.department"
+          required
+          :disabled="props.type === 'view'"
+        />
+      </section>
 
-    <section class="employee-form__field">
-      <label for="dateOfEmployment">Date of Employment:</label>
-      <input
-        type="date"
-        id="dateOfEmployment"
-        name="dateOfEmployment"
-        :value="props.data?.dateOfEmployment"
-        :disabled="props.type === 'view'"
-      />
-    </section>
+      <section class="employee-form__field">
+        <label for="dateOfEmployment">Date of Employment:</label>
+        <input
+          type="date"
+          id="dateOfEmployment"
+          name="dateOfEmployment"
+          :value="props.data?.dateOfEmployment"
+          :disabled="props.type === 'view'"
+        />
+      </section>
 
-    <section class="employee-form__field">
-      <label for="terminationDate">Termination Date:</label>
-      <input
-        type="date"
-        id="terminationDate"
-        name="terminationDate"
-        :value="props.data?.terminationDate"
-        :disabled="props.type === 'view'"
-      />
+      <section class="employee-form__field">
+        <label for="terminationDate">Termination Date:</label>
+        <input
+          type="date"
+          id="terminationDate"
+          name="terminationDate"
+          :value="props.data?.terminationDate"
+          :disabled="props.type === 'view'"
+        />
+      </section>
     </section>
     <section class="employee-form__button-group">
       <button @click="router.push(from ?? '/')">Back</button>
