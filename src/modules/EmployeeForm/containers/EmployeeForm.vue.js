@@ -18,14 +18,22 @@ const checkTypeValidation = (type) => {
     }
 };
 const submitForm = (event) => {
+    // Prevent Form from Reloading
     event.preventDefault();
+    // Get Form Data from Event
     const form = event.target;
     const formData = new FormData(form);
     const employee = {};
+    // Assign Form Data to Employee Object
     formData.forEach((value, key) => {
         const typedKey = key;
-        employee[typedKey] = value.toString(); // all values are strings; convert if needed
+        employee[typedKey] = value.toString();
     });
+    /*
+      Act accordingly depending on tag:
+      - "add": Inserts Employee to EmployeeList
+      - "edit": Updates Employee
+    */
     switch (props.type) {
         case "add":
             employeeListState.addEmployeeToList(employee);
@@ -75,6 +83,9 @@ __VLS_asFunctionalElement(__VLS_intrinsics.form, __VLS_intrinsics.form)({
 __VLS_asFunctionalDirective(__VLS_directives.vShow)(null, { ...__VLS_directiveBindingRestFields, value: (__VLS_ctx.checkTypeValidation(props.type)) }, null, null);
 // @ts-ignore
 [submitForm, checkTypeValidation,];
+__VLS_asFunctionalElement(__VLS_intrinsics.section, __VLS_intrinsics.section)({
+    ...{ class: "employee-form__field-container" },
+});
 __VLS_asFunctionalElement(__VLS_intrinsics.section, __VLS_intrinsics.section)({
     ...{ class: "employee-form__field" },
 });
@@ -177,6 +188,7 @@ __VLS_asFunctionalDirective(__VLS_directives.vShow)(null, { ...__VLS_directiveBi
 /** @type {__VLS_StyleScopedClasses['employee-form__title']} */ ;
 /** @type {__VLS_StyleScopedClasses['employee-form__title']} */ ;
 /** @type {__VLS_StyleScopedClasses['employee-form__form']} */ ;
+/** @type {__VLS_StyleScopedClasses['employee-form__field-container']} */ ;
 /** @type {__VLS_StyleScopedClasses['employee-form__field']} */ ;
 /** @type {__VLS_StyleScopedClasses['employee-form__field']} */ ;
 /** @type {__VLS_StyleScopedClasses['employee-form__field']} */ ;

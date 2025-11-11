@@ -5,20 +5,20 @@ import router from "@/router";
 import { checkIfEmployed, checkIfTerminated, filterTableData, roundTableData, sortTableData, } from "../helpers/tableHelper";
 const props = defineProps();
 const employeeListState = useEmployeeListStore();
-// Pagination Variables
+/// Pagination Variables
 const currentPage = ref(1);
 const size = 8;
 const pageStart = computed(() => (currentPage.value - 1) * size);
 const pageEnd = computed(() => currentPage.value * size);
-// Filter Functions
+/// Filter Functions
 const filteredEmployees = computed(() => {
     currentPage.value = 1;
     return filterTableData(props.employees, props.filters);
 });
-// Sorting Variables
+/// Sorting Variables
 const sortKey = ref(null);
 const sortAsc = ref(true);
-// Sorting Functions
+/// Sorting Functions
 const getSortingIcon = (key) => {
     if (sortKey.value === key) {
         if (sortAsc.value) {
@@ -44,11 +44,11 @@ const setSort = (key) => {
 const sortedEmployees = computed(() => {
     return sortTableData(filteredEmployees.value, sortKey.value, sortAsc.value);
 });
-// Table Rounding Function
+/// Table Rounding Function
 const paddedData = computed(() => {
     return roundTableData(size, sortedEmployees.value);
 });
-// Employee Actions
+/// Employee Actions
 const viewEmployee = (employee) => {
     router.push({
         path: "/form/view/",
@@ -60,6 +60,13 @@ const editEmployee = (employee) => {
         path: `/form/edit/`,
         query: { employee: JSON.stringify(employee) },
     });
+};
+const removeEmployee = (employee) => {
+    const removeConfirmation = confirm(`Are you sure you want to remove ${employee.fullName}?`);
+    if (removeConfirmation) {
+        employeeListState.removeEmployeeFromList(employee);
+    }
+    ;
 };
 debugger; /* PartiallyEnd: #3632/scriptSetup.vue */
 const __VLS_ctx = {
@@ -204,9 +211,9 @@ for (const [employee, index] of __VLS_getVForSourceType((__VLS_ctx.paddedData.sl
             { onDelete: (...[$event]) => {
                     if (!(employee))
                         return;
-                    __VLS_ctx.employeeListState.removeEmployeeFromList(employee);
+                    __VLS_ctx.removeEmployee(employee);
                     // @ts-ignore
-                    [employeeListState,];
+                    [removeEmployee,];
                 } });
         var __VLS_12;
     }

@@ -1,5 +1,4 @@
-debugger; /* PartiallyEnd: #3632/script.vue */
-const __VLS_export = (await import('vue')).defineComponent({});
+debugger; /* PartiallyEnd: #3632/scriptSetup.vue */
 const __VLS_ctx = {};
 let __VLS_components;
 let __VLS_directives;
@@ -60,4 +59,5 @@ const __VLS_12 = __VLS_11({
 /** @type {__VLS_StyleScopedClasses['navbar__icon']} */ ;
 /** @type {__VLS_StyleScopedClasses['navbar__title']} */ ;
 /** @type {__VLS_StyleScopedClasses['navbar__icon']} */ ;
+const __VLS_export = (await import('vue')).defineComponent({});
 export default {};
