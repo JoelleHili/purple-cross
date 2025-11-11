@@ -61,6 +61,13 @@ const editEmployee = (employee) => {
         query: { employee: JSON.stringify(employee) },
     });
 };
+const removeEmployee = (employee) => {
+    const removeConfirmation = confirm(`Are you sure you want to remove ${employee.fullName}?`);
+    if (removeConfirmation) {
+        employeeListState.removeEmployeeFromList(employee);
+    }
+    ;
+};
 debugger; /* PartiallyEnd: #3632/scriptSetup.vue */
 const __VLS_ctx = {
     ...{},
@@ -204,9 +211,9 @@ for (const [employee, index] of __VLS_getVForSourceType((__VLS_ctx.paddedData.sl
             { onDelete: (...[$event]) => {
                     if (!(employee))
                         return;
-                    __VLS_ctx.employeeListState.removeEmployeeFromList(employee);
+                    __VLS_ctx.removeEmployee(employee);
                     // @ts-ignore
-                    [employeeListState,];
+                    [removeEmployee,];
                 } });
         var __VLS_12;
     }

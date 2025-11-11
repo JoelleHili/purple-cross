@@ -76,6 +76,9 @@ __VLS_asFunctionalDirective(__VLS_directives.vShow)(null, { ...__VLS_directiveBi
 // @ts-ignore
 [submitForm, checkTypeValidation,];
 __VLS_asFunctionalElement(__VLS_intrinsics.section, __VLS_intrinsics.section)({
+    ...{ class: "employee-form__field-container" },
+});
+__VLS_asFunctionalElement(__VLS_intrinsics.section, __VLS_intrinsics.section)({
     ...{ class: "employee-form__field" },
 });
 __VLS_asFunctionalElement(__VLS_intrinsics.label, __VLS_intrinsics.label)({
@@ -177,6 +180,7 @@ __VLS_asFunctionalDirective(__VLS_directives.vShow)(null, { ...__VLS_directiveBi
 /** @type {__VLS_StyleScopedClasses['employee-form__title']} */ ;
 /** @type {__VLS_StyleScopedClasses['employee-form__title']} */ ;
 /** @type {__VLS_StyleScopedClasses['employee-form__form']} */ ;
+/** @type {__VLS_StyleScopedClasses['employee-form__field-container']} */ ;
 /** @type {__VLS_StyleScopedClasses['employee-form__field']} */ ;
 /** @type {__VLS_StyleScopedClasses['employee-form__field']} */ ;
 /** @type {__VLS_StyleScopedClasses['employee-form__field']} */ ;
