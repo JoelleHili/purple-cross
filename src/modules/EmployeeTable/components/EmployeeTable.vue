@@ -76,6 +76,12 @@ const editEmployee = (employee: EmployeeTypes) => {
     query: { employee: JSON.stringify(employee) },
   });
 };
+
+const removeEmployee = (employee: EmployeeTypes) => {
+  const removeConfirmation = confirm(`Are you sure you want to remove ${employee.fullName}?`)
+
+  if (removeConfirmation) {employeeListState.removeEmployeeFromList(employee)};
+}
 </script>
 
 <template>
@@ -128,7 +134,7 @@ const editEmployee = (employee: EmployeeTypes) => {
             <EmployeeTableActions
               @view="viewEmployee(employee)"
               @edit="editEmployee(employee)"
-              @delete="employeeListState.removeEmployeeFromList(employee)"
+              @delete="removeEmployee(employee)"
             />
           </td>
         </template>
